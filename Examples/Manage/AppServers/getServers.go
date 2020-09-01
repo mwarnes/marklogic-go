@@ -1,15 +1,17 @@
 package main
 
 import (
-	"github.com/davecgh/go-spew/spew"
-	"github.com/mwarnes/marklogic-go"
 	"log"
+
+	"marklogic-go"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 func main() {
 
 	conn := marklogic.Connection{
-		Host:               "localhost",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
