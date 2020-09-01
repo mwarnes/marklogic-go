@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/mwarnes/marklogic-go"
 	"log"
+	"marklogic-go"
 )
 
 func main() {

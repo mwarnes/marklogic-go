@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/davecgh/go-spew/spew"
-	"github.com/mwarnes/marklogic-go"
 	"log"
+	"marklogic-go"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 func main() {

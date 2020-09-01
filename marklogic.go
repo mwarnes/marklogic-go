@@ -24,6 +24,7 @@ type Connection struct {
 const (
 	BasicAuth = iota
 	DigestAuth
+	KerberosAuth
 	CertificateAuth
 	None
 )

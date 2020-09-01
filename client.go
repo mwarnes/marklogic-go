@@ -2,12 +2,14 @@ package marklogic
 
 import (
 	"fmt"
-	"github.com/mwarnes/digest"
 	"log"
 	"net/http"
+
+	"github.com/dpotapov/go-spnego"
+	"github.com/mwarnes/digest"
 )
 
-// MarkLogic Client Connection
+// Client Connection
 // This is a very simple lean interface which we can "decorate" with additional
 // functionality only if and when it is needed
 type Client interface {
@@ -150,10 +152,15 @@ func getBasicClientAndBase(connection Connection, clientType int) (Client, strin
 
 	var httpClient *http.Client
 
-	if connection.AuthenticationType == DigestAuth {
+	switch connection.AuthenticationType {
+	case DigestAuth:
 		transport := digest.NewTransport(connection.Username, connection.Password, connection.TLSConfig)
 		httpClient = &http.Client{Transport: transport}
-	} else {
+	case KerberosAuth:
+		transport := &spnego.Transport{}
+		transport.TLSClientConfig = connection.TLSConfig
+		httpClient = &http.Client{Transport: transport}
+	default:
 		transport := &http.Transport{TLSClientConfig: connection.TLSConfig}
 		httpClient = &http.Client{Transport: transport}
 	}

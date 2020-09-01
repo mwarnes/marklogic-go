@@ -3,9 +3,10 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"log"
+
 	"github.com/Pallinder/go-randomdata"
 	"github.com/mwarnes/marklogic-go"
-	"log"
 )
 
 var (

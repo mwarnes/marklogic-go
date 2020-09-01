@@ -2,11 +2,12 @@ package marklogic
 
 import (
 	"bytes"
-	"github.com/google/go-querystring/query"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/google/go-querystring/query"
 )
 
 const (

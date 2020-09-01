@@ -3,11 +3,12 @@ package marklogic
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/google/go-querystring/query"
 	"log"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/google/go-querystring/query"
 )
 
 const (
@@ -1671,6 +1672,7 @@ type PackageHTTPServer struct {
 			ModuleLocations                interface{} `json:"module-locations"`
 			RequestBlackouts               interface{} `json:"request-blackouts"`
 			URLRewriter                    string      `json:"url-rewriter"`
+			SslCertificateTemplate         string      `json:"ssl-certificate-template"`
 			RewriteResolvesGlobally        bool        `json:"rewrite-resolves-globally"`
 			SslAllowSslv3                  bool        `json:"ssl-allow-sslv3"`
 			SslAllowTLS                    bool        `json:"ssl-allow-tls"`
@@ -2003,6 +2005,7 @@ type AppServerProperties struct {
 	ErrorHandler                   string      `json:"error-handler,omitempty"`
 	URLRewriter                    string      `json:"url-rewriter,omitempty"`
 	RewriteResolvesGlobally        bool        `json:"rewrite-resolves-globally,omitempty"`
+	SslCertificateTemplate         string      `json:"ssl-certificate-template"`
 	SslAllowSslv3                  bool        `json:"ssl-allow-sslv3,omitempty"`
 	SslAllowTLS                    bool        `json:"ssl-allow-tls,omitempty"`
 	SslDisableSslv3                bool        `json:"ssl-disable-sslv3,omitempty"`
