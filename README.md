@@ -1,2 +1,2 @@
 # marklogic-go
-A Golang MarkLogic REST API 
+A Golang MarkLogic REST API.
