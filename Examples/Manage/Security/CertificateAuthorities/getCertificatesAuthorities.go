@@ -12,10 +12,10 @@ func main() {
 
 	// MarkLogic REST API Connection parameters
 	conn := marklogic.Connection{
-		Host:               "localhost",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
-		Password:           "admin",
+		Password:           "password",
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
@@ -24,6 +24,7 @@ func main() {
 
 	// Get a list of all Certificates Authorities stored in MarkLogic
 	certificateAuthoritiesList, restError, resp := c.Security.GetCertificateAuthorities()
+	log.Println(spew.Sdump(resp.Status))
 
 	if resp.StatusCode == 200 {
 		log.Println(spew.Sdump(certificateAuthoritiesList))
