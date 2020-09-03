@@ -5,29 +5,29 @@ import (
 	"log"
 )
 
-// Issue a Timestamp GET Request
-// https://docs.marklogic.com/REST/GET/admin/v1/timestamp
 func main() {
 
 	//tlsConfig := &tls.Config{
-	//	InsecureSkipVerify:true,
+	//	InsecureSkipVerify: true,
 	//}
 
 	// MarkLogic REST API Connection parameters
 	conn := marklogic.Connection{
 		Host:               "mwca",
-		Port:               8001,
+		Port:               8000,
 		Username:           "admin",
 		Password:           "admin",
 		AuthenticationType: marklogic.DigestAuth,
-		//TLSConfig: tlsConfig,
+		//TLSConfig:          tlsConfig,
 	}
 
 	// Create a new MarkLogic Admin REST API client
-	c := marklogic.MarkLogicAdminClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	// Issue Timestamp request
-	timestamp, _ := c.Admin.Timestamp()
+	req, _ := c.Adhoc.NewRequest("GET", "/v1/config/indexes", nil)
 
-	log.Println("Current timestamp:", timestamp)
+	httpResp, err := c.Adhoc.ExecuteRequest(req)
+	defer httpResp.Body.Close()
+	log.Println(httpResp.Status, err)
+
 }

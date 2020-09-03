@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/google/go-querystring/query"
 )
@@ -61,6 +62,19 @@ type DocumentService struct {
 	base   string
 }
 
+type Service struct {
+	client Client
+	base   string
+}
+
+func NewService(client Client, base string) *Service {
+
+	return &Service{
+		base:   base,
+		client: client,
+	}
+}
+
 // NewService creates a new Admin service for processing MarkLogic Client REST API resquest.
 // NewService takes a RestClient and builds a new sling HTTP Client configured with a Base URI and UserAgent header
 // A new Service is returned
@@ -70,6 +84,25 @@ func NewDocumentService(client Client, base string) *DocumentService {
 		client: client,
 		base:   base,
 	}
+}
+
+func (s *Service) NewRequest(method, url string, body io.Reader) (*http.Request, error) {
+	url = strings.TrimLeft(url, "/")
+	req, err := http.NewRequest(method, s.base+url, body)
+	return req, err
+}
+
+func (s *Service) ExecuteRequest(req *http.Request) (*http.Response, error) {
+	s.client = Decorate(s.client,
+		AddHeader("Accept", "application/json"),
+	)
+
+	response, err := s.client.Do(req)
+	if err != nil {
+		return response, err
+	}
+
+	return response, err
 }
 
 func (s *DocumentService) Write(properties DocumentProperties, content io.Reader) (RestErrorResponse, http.Response, error) {

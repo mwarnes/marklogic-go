@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"marklogic-go"
+	"github.com/mwarnes/marklogic-go"
 
 	"github.com/davecgh/go-spew/spew"
 )

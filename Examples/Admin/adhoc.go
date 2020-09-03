@@ -2,7 +2,9 @@ package main
 
 import (
 	"github.com/mwarnes/marklogic-go"
+	"io/ioutil"
 	"log"
+	"net/http"
 )
 
 // Issue a Timestamp GET Request
@@ -26,8 +28,21 @@ func main() {
 	// Create a new MarkLogic Admin REST API client
 	c := marklogic.MarkLogicAdminClient(conn)
 
-	// Issue Timestamp request
-	timestamp, _ := c.Admin.Timestamp()
+	req, _ := c.Adhoc.NewRequest("GET", "/v1/timestamp", nil)
 
-	log.Println("Current timestamp:", timestamp)
+	httpResp, err := c.Adhoc.ExecuteRequest(req)
+
+	if err == nil {
+		defer httpResp.Body.Close()
+		if httpResp.StatusCode == http.StatusOK {
+			contents, err := ioutil.ReadAll(httpResp.Body)
+			if err != nil {
+				log.Fatalln(err)
+			}
+			log.Println(string(contents))
+		}
+	} else {
+		log.Println(err)
+	}
+
 }

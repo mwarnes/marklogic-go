@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/mwarnes/marklogic-go"
 	"log"
-	"marklogic-go"
 
 	"github.com/davecgh/go-spew/spew"
 )
@@ -23,7 +23,7 @@ func main() {
 		GroupId: "Default",
 	}
 
-	appSeverPropertiesResponse, errorResponse, resp := c.AppServer.GetAppServerProperties("Manage", parms)
+	appSeverPropertiesResponse, errorResponse, resp := c.AppServer.GetAppServerProperties("xdbc1", parms)
 
 	if resp.StatusCode == 200 {
 		log.Println(spew.Sdump(appSeverPropertiesResponse))

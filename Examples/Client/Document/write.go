@@ -5,7 +5,7 @@ import (
 	"crypto/tls"
 	"log"
 
-	"marklogic-go"
+	"github.com/mwarnes/marklogic-go"
 )
 
 func main() {

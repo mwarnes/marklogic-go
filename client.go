@@ -68,14 +68,17 @@ func Decorate(c Client, ds ...Decorator) Client {
 }
 
 type RestClient struct {
+	Adhoc    *Service
 	Document *DocumentService
 }
 
 type AdminClient struct {
+	Adhoc *Service
 	Admin *AdminService
 }
 
 type ManageClient struct {
+	Adhoc     *Service
 	AppServer *AppServerService
 	Cluster   *ClusterService
 	Security  *SecurityService
@@ -95,9 +98,11 @@ func MarkLogicAdminClient(connection Connection) AdminClient {
 			AddBasicAuthentication(connection),
 		)
 	}
+	service := NewService(cli, base)
 	adminService := NewAdminService(cli, base)
 
 	return AdminClient{
+		Adhoc: service,
 		Admin: adminService,
 	}
 }
@@ -116,11 +121,13 @@ func MarkLogicManageClient(connection Connection) ManageClient {
 			AddBasicAuthentication(connection),
 		)
 	}
+	service := NewService(cli, base)
 	clusterService := NewClusterService(cli, base)
 	securityService := NewSecurityService(cli, base)
 	appServerService := NewAppServerService(cli, base)
 
 	return ManageClient{
+		Adhoc:     service,
 		AppServer: appServerService,
 		Cluster:   clusterService,
 		Security:  securityService,
@@ -141,9 +148,12 @@ func MarkLogicRestClient(connection Connection) RestClient {
 			AddBasicAuthentication(connection),
 		)
 	}
+
+	service := NewService(cli, base)
 	documentService := NewDocumentService(cli, base)
 
 	return RestClient{
+		Adhoc:    service,
 		Document: documentService,
 	}
 }
