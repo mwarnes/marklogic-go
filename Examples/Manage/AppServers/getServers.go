@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/mwarnes/marklogic-go"
 	"log"
 
 	"marklogic-go"
@@ -22,7 +23,7 @@ func main() {
 
 	parms := marklogic.ServerParameters{
 		GroupId: "Default",
-		View:    "package",
+		View:    "default",
 	}
 
 	appSeversResponse, errorResponse, resp := c.AppServer.GetAppServers(parms)
