@@ -61,42 +61,43 @@ func ExecuteRequest(client Client, req *http.Request, successV, failureV interfa
 
 	// Decode from json
 	if successV != nil || failureV != nil {
-		err = decodeResponseJSON(response, successV, failureV)
+		err = DecodeResponseJSON(response, successV, failureV)
 	}
 
 	return response, err
 }
 
-func decodeResponseJSON(resp *http.Response, successV, failureV interface{}) error {
+func DecodeResponseJSON(resp *http.Response, successV, failureV interface{}) error {
 	if code := resp.StatusCode; 200 <= code && code <= 299 {
 		if successV != nil {
-			return decodeResponseBodyJSON(resp, successV)
+			return DecodeResponseBodyJSON(resp, successV)
 		}
 	} else {
 		if failureV != nil {
-			return decodeResponseBodyJSON(resp, failureV)
+			return DecodeResponseBodyJSON(resp, failureV)
 		}
 	}
 	return nil
 }
 
-func decodeResponseXML(resp *http.Response, successV, failureV interface{}) error {
+func DecodeResponseXML(resp *http.Response, successV, failureV interface{}) error {
 	if code := resp.StatusCode; 200 <= code && code <= 299 {
 		if successV != nil {
-			return decodeResponseBodyXML(resp, successV)
+			return DecodeResponseBodyXML(resp, successV)
 		}
 	} else {
 		if failureV != nil {
-			return decodeResponseBodyXML(resp, failureV)
+			return DecodeResponseBodyXML(resp, failureV)
 		}
 	}
 	return nil
 }
 
-func decodeResponseBodyJSON(resp *http.Response, v interface{}) error {
+func DecodeResponseBodyJSON(resp *http.Response, v interface{}) error {
 	return json.NewDecoder(resp.Body).Decode(v)
 }
 
-func decodeResponseBodyXML(resp *http.Response, v interface{}) error {
+
+func DecodeResponseBodyXML(resp *http.Response, v interface{}) error {
 	return xml.NewDecoder(resp.Body).Decode(v)
 }
