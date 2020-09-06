@@ -13,7 +13,7 @@ func main() {
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
-		AuthenticationType: marklogic.DigestAuth,
+		AuthenticationType: marklogic.BasicAuth,
 	}
 
 	c := marklogic.MarkLogicRestClient(conn)
