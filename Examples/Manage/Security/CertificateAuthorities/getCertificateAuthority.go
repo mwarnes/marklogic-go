@@ -20,9 +20,9 @@ func main() {
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	certificateAuthority, restError, resp := c.Security.GetCertificateAuthority("149618619387296503")
+	certificateAuthority, restError, resp := c.RestService.GetCertificateAuthority("149618619387296503")
 
 	if resp.StatusCode == 200 {
 		log.Println(spew.Sdump(certificateAuthority))

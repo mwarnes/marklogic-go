@@ -17,7 +17,7 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
 	var pem = `-----BEGIN CERTIFICATE-----
 MIIDejCCAmKgAwIBAgIBbzANBgkqhkiG9w0BAQUFADBOMSYwJAYDVQQDDB1Qcmlt
@@ -41,7 +41,7 @@ Umdn3uZe+uDqG9xh2ryo4c/w26uNtfa/neZBtV5a9Wp0zWXzPJMhCry+dl2/6u6Z
 kQLil0KjORbt+X0vP3Jzy1XYgd2ru4DMFX7VkVj1
 -----END CERTIFICATE-----`
 
-	restError, resp := c.Security.AddCertificate(pem, true)
+	restError, resp := c.RestService.AddCertificate(pem, true)
 
 	if resp.StatusCode == 201 {
 		log.Println("Certificate added.")

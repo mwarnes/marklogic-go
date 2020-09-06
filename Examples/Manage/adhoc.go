@@ -72,11 +72,11 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	req, _ := c.Adhoc.NewRequest("GET", "/v2/servers", nil)
+	req, _ := c.RestService.NewRequest("GET", "/manage/v2/servers", nil)
 
-	httpResp, err := c.Adhoc.ExecuteRequest(req)
+	httpResp, err := c.RestService.ExecuteRequest(req)
 
 	servers := new(Servers)
 
@@ -84,7 +84,7 @@ func main() {
 		defer httpResp.Body.Close()
 		if httpResp.StatusCode == http.StatusOK {
 			decodeResponseBodyJSON(httpResp, servers)
-			log.Println(servers.ServerDefaultList.ListItems.ListItem[0].Uriref)
+			log.Println(servers.ServerDefaultList)
 		}
 	} else {
 		log.Println(err)

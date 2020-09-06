@@ -20,16 +20,16 @@ func main() {
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
 	// Get List of Certificate Authorities
-	certificateAuthorities, restError, resp := c.Security.GetCertificateAuthorities()
+	certificateAuthorities, restError, resp := c.RestService.GetCertificateAuthorities()
 	if resp.StatusCode != 200 {
 		log.Fatalln(resp.Status)
 	}
 
 	// Get properties for first Certificate Authority in list
-	certificateAuthorityProperties, restError, resp := c.Security.GetCertificateAuthorityProperties(
+	certificateAuthorityProperties, restError, resp := c.RestService.GetCertificateAuthorityProperties(
 		certificateAuthorities.ListItems.ListItem[0].Idref)
 
 	if resp.StatusCode == 200 {

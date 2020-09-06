@@ -8,7 +8,7 @@ import (
 
 const (
 	Clusters               = "/manage/LATEST"
-	LocalClusterProperties = "LATEST/properties"
+	LocalClusterProperties = "/manage/LATEST/properties"
 )
 
 func (s *RestService) GetLocalClusterSummary() (Structures.LocalClusterDefault, Structures.RestErrorResponse, http.Response) {

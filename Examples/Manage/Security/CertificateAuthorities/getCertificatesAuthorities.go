@@ -20,10 +20,10 @@ func main() {
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
 	// Get a list of all Certificates Authorities stored in MarkLogic
-	certificateAuthoritiesList, restError, resp := c.Security.GetCertificateAuthorities()
+	certificateAuthoritiesList, restError, resp := c.RestService.GetCertificateAuthorities()
 	log.Println(spew.Sdump(resp.Status))
 
 	if resp.StatusCode == 200 {

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"log"
-	"marklogic-go"
-
 	"github.com/davecgh/go-spew/spew"
+	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
+	"log"
 )
 
 func main() {
@@ -17,25 +17,25 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	certSubject := marklogic.Subject{
+	certSubject := Structures.Subject{
 		CountryName:            "UK",
 		OrganizationName:       "MarkLogic",
 		OrganizationalUnitName: "Support",
 		EmailAddress:           "martin.warnes@marklogic.com",
 	}
 
-	certReq := marklogic.Req{
+	certReq := Structures.Req{
 		Version: "0",
 		Subject: certSubject,
 	}
 
-	keyOpts := marklogic.KeyOptions{
+	keyOpts := Structures.KeyOptions{
 		KeyLength: "2048",
 	}
 
-	certTemplate := marklogic.CertificateTemplateProperties{
+	certTemplate := Structures.CertificateTemplateProperties{
 		TemplateName:        "ssl1",
 		TemplateDescription: "GoLang created template.",
 		KeyType:             "rsa",
@@ -43,7 +43,7 @@ func main() {
 		Req:                 certReq,
 	}
 
-	errorResponse, resp := c.Security.CreateCertificateTemplate(certTemplate)
+	errorResponse, resp := c.RestService.CreateCertificateTemplate(certTemplate)
 
 	if resp.StatusCode == 201 {
 		log.Println("Template created.")
@@ -51,5 +51,4 @@ func main() {
 		log.Println(resp.Status)
 		log.Println(spew.Sdump(errorResponse))
 	}
-
 }

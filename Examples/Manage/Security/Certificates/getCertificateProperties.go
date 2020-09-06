@@ -20,14 +20,14 @@ func main() {
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	certificates, restError, resp := c.Security.GetCertificates()
+	certificates, restError, resp := c.RestService.GetCertificates()
 	if resp.StatusCode != 200 {
 		log.Fatalln(resp.Status)
 	}
 
-	certificateProperties, restError, resp := c.Security.GetCertificateProperties(
+	certificateProperties, restError, resp := c.RestService.GetCertificateProperties(
 		certificates.ListItems.ListItem[0].Idref)
 
 	if resp.StatusCode == 200 {

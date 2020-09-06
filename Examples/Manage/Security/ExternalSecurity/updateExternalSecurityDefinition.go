@@ -17,7 +17,7 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
 	externalSecurity := Structures.ExternalSecurityConfigurationParameters{
 		ExternalSecurityName: "Auth1",
@@ -25,7 +25,7 @@ func main() {
 		CacheTimeout:         600,
 	}
 
-	restartResponse, errorResponse, resp := c.Security.UpdateExternalSecurityConfiguration(externalSecurity)
+	restartResponse, errorResponse, resp := c.RestService.UpdateExternalSecurityConfiguration(externalSecurity)
 
 	if resp.StatusCode == 204 {
 		log.Println("External Security configuration updated successfully.")

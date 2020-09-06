@@ -18,10 +18,10 @@ func main() {
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
 	// Get a list of all External Security Definitions stored in MarkLogic
-	externalSecurityConfiguration, restError, resp := c.Security.GetExternalSecurityConfiguration("KerberosExtSec")
+	externalSecurityConfiguration, restError, resp := c.RestService.GetExternalSecurityConfiguration("KerberosExtSec")
 
 	if resp.StatusCode == 200 {
 		log.Println(spew.Sdump(externalSecurityConfiguration))

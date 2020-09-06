@@ -16,9 +16,9 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	restartResponse, errorResponse, resp := c.Security.DeleteExternalSecurityConfiguration("Auth1")
+	restartResponse, errorResponse, resp := c.RestService.DeleteExternalSecurityConfiguration("Auth1")
 
 	if resp.StatusCode == 202 {
 		log.Println("External Security configuration deleted successfully, restart required.")

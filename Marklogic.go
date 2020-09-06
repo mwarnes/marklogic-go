@@ -43,7 +43,7 @@ func ExecuteRequest(client Client, req *http.Request, successV, failureV interfa
 	// Close body when finished
 	defer response.Body.Close()
 
-	// 204 No Content; so no need to decode.
+	// 204 No Content or 4xx; so no need to decode.
 	if response.StatusCode == 204 || response.StatusCode >= 400 {
 		return response, nil
 	}

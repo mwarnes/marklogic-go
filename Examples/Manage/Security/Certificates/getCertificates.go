@@ -16,9 +16,9 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	certificatesList, errorResponse, resp := c.Security.GetCertificates()
+	certificatesList, errorResponse, resp := c.RestService.GetCertificates()
 
 	if resp.StatusCode == 200 {
 		log.Println(spew.Sdump(certificatesList))

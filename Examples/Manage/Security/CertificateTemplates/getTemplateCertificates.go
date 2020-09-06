@@ -22,13 +22,13 @@ func main() {
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
 	operation := Structures.CertificateTemplateOperation{
 		Operation: "get-certificates-for-template",
 	}
 
-	content, resp := c.Security.PerformCertificateTemplateOperation("ssl1", operation)
+	content, resp := c.RestService.PerformCertificateTemplateOperation("ssl1", operation)
 
 	if resp.StatusCode == 200 {
 		var templateCertificates Structures.TemplateCertificates
