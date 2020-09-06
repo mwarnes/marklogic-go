@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
 	"log"
 )
 
@@ -17,11 +18,11 @@ func main() {
 
 	c := marklogic.MarkLogicRestClient(conn)
 
-	documentProperties := marklogic.DocumentProperties{
+	documentProperties := Structures.DocumentProperties{
 		URI: "/recipe2.json",
 	}
 
-	document, httpResp := c.Document.Read(documentProperties)
+	document, httpResp := c.RestService.Read(documentProperties)
 
 	if httpResp.StatusCode == 200 {
 		log.Println("Document read.")

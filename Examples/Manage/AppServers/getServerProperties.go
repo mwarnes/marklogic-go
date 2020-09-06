@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/mwarnes/marklogic-go"
-	"log"
-
 	"github.com/davecgh/go-spew/spew"
+	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
+	"log"
 )
 
 func main() {
@@ -17,13 +17,13 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	parms := marklogic.ServerParameters{
+	parms := Structures.ServerParameters{
 		GroupId: "Default",
 	}
 
-	appSeverPropertiesResponse, errorResponse, resp := c.AppServer.GetAppServerProperties("xdbc1", parms)
+	appSeverPropertiesResponse, errorResponse, resp := c.RestService.GetAppServerProperties("xdbc1", parms)
 
 	if resp.StatusCode == 200 {
 		log.Println(spew.Sdump(appSeverPropertiesResponse))

@@ -1,14 +1,4 @@
-package marklogic
-
-import (
-	"log"
-	"net/http"
-)
-
-const (
-	ClustersV2             = "LATEST"
-	LocalClusterProperties = "LATEST/properties"
-)
+package Structures
 
 // Clusters
 type LocalClusterResponse struct {
@@ -58,59 +48,3 @@ type BootstrapHost struct {
 type ClusterOperation struct {
 	Operation string `json:"operation,omitempty"`
 }
-
-type ClusterService struct {
-	client Client
-	base   string
-}
-
-// NewService creates a new Admin service for processing MarkLogic Client REST API resquest.
-// NewService takes a RestClient and builds a new sling HTTP Client configured with a Base URI and UserAgent header
-// A new Service is returned
-func NewClusterService(client Client, base string) *ClusterService {
-
-	return &ClusterService{
-		client: client,
-		base:   base,
-	}
-}
-
-// SetServerProperties sets the database properties
-//func (s *ManageService) PerformClusterOperation(operation ClusterOperation) (LocalClusterSummary, RestErrorResponse, http.Response) {
-//	req, _ := s.sling.New().Get(ClustersV2).
-//		Add("Accept", "application/json").BodyJSON(operation).Request()
-//	clustersResponse := new(LocalClusterSummary)
-//	errorResponse := new(RestErrorResponse)
-//	resp, err := s.sling.New().Do(req, clustersResponse, errorResponse)
-//	if err != nil {
-//		log.Fatalln(err)
-//	}
-//	return *clustersResponse, *errorResponse, *resp
-//}
-
-func (s *ClusterService) GetLocalClusterSummary() (LocalClusterDefault, RestErrorResponse, http.Response) {
-	req, _ := http.NewRequest("GET", s.base+ClustersV2, nil)
-
-	s.client = Decorate(s.client,
-		AddHeader("Accept", "application/json"),
-	)
-	clustersResponse := new(LocalClusterResponse)
-	errorResponse := new(RestErrorResponse)
-	response, err := ExecuteRequest(s.client, req, clustersResponse, errorResponse)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	return clustersResponse.LocalClusterDefault, *errorResponse, *response
-}
-
-//func (s *ManageService) GetLocalClusterProperties() (ClusterProperties, RestErrorResponse, http.Response) {
-//	req, _ := s.sling.New().Get(LocalClusterProperties).
-//		Add("Accept", "application/json").Request()
-//	clustersResponse := new(ClusterProperties)
-//	errorResponse := new(RestErrorResponse)
-//	resp, err := s.sling.New().Do(req, clustersResponse, errorResponse)
-//	if err != nil {
-//		log.Fatalln(err)
-//	}
-//	return *clustersResponse, *errorResponse, *resp
-//}

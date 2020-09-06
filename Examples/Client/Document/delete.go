@@ -1,8 +1,9 @@
 package main
 
 import (
+	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
 	"log"
-	"marklogic-go"
 )
 
 func main() {
@@ -17,11 +18,11 @@ func main() {
 
 	c := marklogic.MarkLogicRestClient(conn)
 
-	documentProperties := marklogic.DocumentProperties{
+	documentProperties := Structures.DocumentProperties{
 		URI: "/recipe2.json",
 	}
 
-	httpResp := c.Document.Delete(documentProperties)
+	httpResp := c.RestService.Delete(documentProperties)
 
 	if httpResp.StatusCode == 204 {
 		log.Println("Document deleted.")

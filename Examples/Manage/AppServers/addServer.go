@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
 	"log"
 )
 
@@ -16,9 +17,9 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	server := marklogic.AppServerProperties{
+	server := Structures.AppServerProperties{
 		ServerName:      "myAppSrvr",
 		GroupName:       "Default",
 		ServerType:      "http",
@@ -27,7 +28,7 @@ func main() {
 		ContentDatabase: "Documents",
 	}
 
-	errorResponse, resp := c.AppServer.AddAppServer(server)
+	errorResponse, resp := c.RestService.AddAppServer(server)
 
 	if resp.StatusCode == 200 {
 		log.Println("Server added successfully.")

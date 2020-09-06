@@ -15,14 +15,14 @@ func main() {
 		Port:               8001,
 		Username:           "admin",
 		Password:           "admin",
-		AuthenticationType: marklogic.None,
+		AuthenticationType: marklogic.DigestAuth,
 	}
 
 	// Create a new MarkLogic Admin REST API client
-	c := marklogic.MarkLogicAdminClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
 	// Issue Timestamp request
-	timestamp, _ := c.Admin.TimestampHead()
+	timestamp, _ := c.RestService.TimestampHead()
 
 	fmt.Println(timestamp)
 }

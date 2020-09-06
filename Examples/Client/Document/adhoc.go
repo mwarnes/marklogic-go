@@ -24,9 +24,9 @@ func main() {
 	// Create a new MarkLogic Admin REST API client
 	c := marklogic.MarkLogicRestClient(conn)
 
-	req, _ := c.Adhoc.NewRequest("GET", "/v1/config/indexes", nil)
+	req, _ := c.RestService.NewRequest("GET", "/v1/config/indexes", nil)
 
-	httpResp, err := c.Adhoc.ExecuteRequest(req)
+	httpResp, err := c.RestService.ExecuteRequest(req)
 	defer httpResp.Body.Close()
 	log.Println(httpResp.Status, err)
 

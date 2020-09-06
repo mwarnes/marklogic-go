@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
 	"log"
 )
 
@@ -20,16 +21,16 @@ func main() {
 	}
 
 	// Create a new MarkLogic Admin REST API client
-	c := marklogic.MarkLogicAdminClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	secProps := marklogic.SecurityProperties{
+	secProps := Structures.SecurityProperties{
 		AdminUsername: "admin",
 		AdminPassword: "admin",
 		Realm:         "public",
 	}
 
 	// Initialize MarkLogic server Security database.
-	restartResp, errorResp, resp := c.Admin.InstanceAdmin(secProps)
+	restartResp, errorResp, resp := c.RestService.InstanceAdmin(secProps)
 
 	if resp.StatusCode == 202 {
 		log.Println("Security initialised restart required.")

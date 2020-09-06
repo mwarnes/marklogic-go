@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
 	"log"
 )
 
@@ -21,7 +22,7 @@ func main() {
 	// Create a new MarkLogic REST API client
 	c := marklogic.MarkLogicManageClient(conn)
 
-	operation := marklogic.CertificateTemplateOperation{
+	operation := Structures.CertificateTemplateOperation{
 		Operation:  "generate-certificate-request",
 		CommonName: "ml-node-4",
 	}

@@ -1,4 +1,4 @@
-package marklogic
+package Structures
 
 import (
 	"time"

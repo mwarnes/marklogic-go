@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"crypto/tls"
+	"github.com/mwarnes/marklogic-go/Structures"
 	"log"
 
 	"github.com/mwarnes/marklogic-go"
@@ -20,7 +21,7 @@ func main() {
 		Port: 8000,
 		// Username:           "admin",
 		// Password:           "admin",
-		AuthenticationType: marklogic.KerberosAuth,
+		AuthenticationType: marklogic.DigestAuth,
 		TLSConfig:          tlsConfig,
 	}
 
@@ -29,12 +30,12 @@ func main() {
 
 	s := `{"recipe":"Apple pie", "fromScratch":true, "ingredients":"apples"}`
 
-	documentProperties := marklogic.DocumentProperties{
+	documentProperties := Structures.DocumentProperties{
 		URI: "/recipe5.json",
 	}
 
 	// Initialize MarkLogic server (With or without a license)
-	restAPIResp, httpResp, err := c.Document.Write(documentProperties, bytes.NewBufferString(s))
+	restAPIResp, httpResp, err := c.RestService.Write(documentProperties, bytes.NewBufferString(s))
 
 	if httpResp.StatusCode == 201 {
 		log.Println("Document created.")

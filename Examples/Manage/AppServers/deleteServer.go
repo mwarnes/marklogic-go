@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
 	"log"
 )
 
@@ -18,7 +19,7 @@ func main() {
 
 	c := marklogic.MarkLogicManageClient(conn)
 
-	parms := marklogic.ServerParameters{
+	parms := Structures.ServerParameters{
 		GroupId: "Default",
 	}
 

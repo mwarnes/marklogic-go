@@ -16,9 +16,9 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.MarkLogicRestClient(conn)
 
-	clusterSummary, errorResp, httpResp := c.Cluster.GetLocalClusterSummary()
+	clusterSummary, errorResp, httpResp := c.RestService.GetLocalClusterSummary()
 
 	if httpResp.StatusCode == 200 {
 		log.Println(spew.Sdump(clusterSummary))

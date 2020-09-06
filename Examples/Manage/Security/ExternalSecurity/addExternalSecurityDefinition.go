@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
 	"log"
 )
 
@@ -18,7 +19,7 @@ func main() {
 
 	c := marklogic.MarkLogicManageClient(conn)
 
-	externalSecurity := marklogic.ExternalSecurityConfigurationParameters{
+	externalSecurity := Structures.ExternalSecurityConfigurationParameters{
 		ExternalSecurityName: "Auth1",
 		Description:          "This is an external auth created by go",
 		CacheTimeout:         300,

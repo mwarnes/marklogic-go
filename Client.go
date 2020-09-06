@@ -2,12 +2,43 @@ package marklogic
 
 import (
 	"fmt"
-	"log"
-	"net/http"
-
 	"github.com/dpotapov/go-spnego"
 	"github.com/mwarnes/digest"
+	"io"
+	"log"
+	"net/http"
 )
+
+type RestService struct {
+	client Client
+	base   string
+}
+
+func NewRestService(client Client, base string) *RestService {
+
+	return &RestService{
+		base:   base,
+		client: client,
+	}
+}
+
+func (s *RestService) NewRequest(method, url string, body io.Reader) (*http.Request, error) {
+	req, err := http.NewRequest(method, s.base+url, body)
+	return req, err
+}
+
+func (s *RestService) ExecuteRequest(req *http.Request) (*http.Response, error) {
+	s.client = Decorate(s.client,
+		AddHeader("Accept", "application/json"),
+	)
+
+	response, err := s.client.Do(req)
+	if err != nil {
+		return response, err
+	}
+
+	return response, err
+}
 
 // Client Connection
 // This is a very simple lean interface which we can "decorate" with additional
@@ -68,70 +99,7 @@ func Decorate(c Client, ds ...Decorator) Client {
 }
 
 type RestClient struct {
-	Adhoc    *Service
-	Document *DocumentService
-}
-
-type AdminClient struct {
-	Adhoc *Service
-	Admin *AdminService
-}
-
-type ManageClient struct {
-	Adhoc     *Service
-	AppServer *AppServerService
-	Cluster   *ClusterService
-	Security  *SecurityService
-}
-
-func MarkLogicAdminClient(connection Connection) AdminClient {
-
-	client, base := getBasicClientAndBase(connection, AdminRest)
-
-	cli := Decorate(client,
-		AddHeader("User-Agent", MlGoHttpVersion),
-		//Logging(log.New(os.Stdout, "client: ", log.LstdFlags)),
-	)
-
-	if connection.AuthenticationType == BasicAuth {
-		cli = Decorate(client,
-			AddBasicAuthentication(connection),
-		)
-	}
-	service := NewService(cli, base)
-	adminService := NewAdminService(cli, base)
-
-	return AdminClient{
-		Adhoc: service,
-		Admin: adminService,
-	}
-}
-
-func MarkLogicManageClient(connection Connection) ManageClient {
-
-	client, base := getBasicClientAndBase(connection, ManageRest)
-
-	cli := Decorate(client,
-		AddHeader("User-Agent", MlGoHttpVersion),
-		//Logging(log.New(os.Stdout, "client: ", log.LstdFlags)),
-	)
-
-	if connection.AuthenticationType == BasicAuth {
-		cli = Decorate(client,
-			AddBasicAuthentication(connection),
-		)
-	}
-	service := NewService(cli, base)
-	clusterService := NewClusterService(cli, base)
-	securityService := NewSecurityService(cli, base)
-	appServerService := NewAppServerService(cli, base)
-
-	return ManageClient{
-		Adhoc:     service,
-		AppServer: appServerService,
-		Cluster:   clusterService,
-		Security:  securityService,
-	}
+	RestService *RestService
 }
 
 func MarkLogicRestClient(connection Connection) RestClient {
@@ -140,7 +108,6 @@ func MarkLogicRestClient(connection Connection) RestClient {
 
 	cli := Decorate(client,
 		AddHeader("User-Agent", MlGoHttpVersion),
-		//Logging(log.New(os.Stdout, "client: ", log.LstdFlags)),
 	)
 
 	if connection.AuthenticationType == BasicAuth {
@@ -149,12 +116,10 @@ func MarkLogicRestClient(connection Connection) RestClient {
 		)
 	}
 
-	service := NewService(cli, base)
-	documentService := NewDocumentService(cli, base)
+	restService := NewRestService(cli, base)
 
 	return RestClient{
-		Adhoc:    service,
-		Document: documentService,
+		RestService: restService,
 	}
 }
 
@@ -183,13 +148,7 @@ func getBasicClientAndBase(connection Connection, clientType int) (Client, strin
 	}
 
 	var base string
-	if clientType == AdminRest {
-		base = fmt.Sprintf("%s%s:%d/%s", protocol, connection.Host, connection.Port, Admin_Path)
-	} else if clientType == ClientRest {
-		base = fmt.Sprintf("%s%s:%d/%s", protocol, connection.Host, connection.Port, Client_Path)
-	} else if clientType == ManageRest {
-		base = fmt.Sprintf("%s%s:%d/%s", protocol, connection.Host, connection.Port, Manage_Path)
-	}
+	base = fmt.Sprintf("%s%s:%d", protocol, connection.Host, connection.Port)
 
 	return httpClient, base
 }

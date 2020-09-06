@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
 	"log"
 )
 
@@ -23,14 +24,14 @@ func main() {
 	// Create a new MarkLogic REST API client
 	c := marklogic.MarkLogicManageClient(conn)
 
-	operation := marklogic.CertificateTemplateOperation{
+	operation := Structures.CertificateTemplateOperation{
 		Operation: "get-certificates-for-template",
 	}
 
 	content, resp := c.Security.PerformCertificateTemplateOperation("ssl1", operation)
 
 	if resp.StatusCode == 200 {
-		var templateCertificates marklogic.TemplateCertificates
+		var templateCertificates Structures.TemplateCertificates
 		err := json.Unmarshal(content, &templateCertificates)
 		if err != nil {
 			log.Fatalln(err)

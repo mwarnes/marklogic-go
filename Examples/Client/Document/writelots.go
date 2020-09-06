@@ -3,10 +3,9 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"log"
-
-	"github.com/Pallinder/go-randomdata"
 	"github.com/mwarnes/marklogic-go"
+	"github.com/mwarnes/marklogic-go/Structures"
+	"log"
 )
 
 var (
@@ -35,7 +34,7 @@ func main() {
 
 	for i := 29000; i < 100000; i++ {
 
-		documentProperties := marklogic.DocumentProperties{
+		documentProperties := Structures.DocumentProperties{
 			URI: fmt.Sprintf("%s%d.%s", "/xml/document-", i, ".xml"),
 		}
 
@@ -45,7 +44,7 @@ func main() {
 		}
 		xml := fmt.Sprintf("%s%s%s", ucXML, fmt.Sprintf("%s%s%s", "<para>", buffer.String(), "</para>"), "</article>")
 
-		restApiResp, httpResp, err := c.Document.Write(documentProperties, bytes.NewBufferString(xml))
+		restApiResp, httpResp, err := c.RestService.Write(documentProperties, bytes.NewBufferString(xml))
 
 		if httpResp.StatusCode == 201 {
 			log.Println("Document created. ", i)

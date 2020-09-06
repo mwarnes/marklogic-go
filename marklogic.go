@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	MlGoHttpVersion = "MarkLogic-Go-Client/1.0.0"
+	MlGoHttpVersion = "MarkLogic-Go-Client/2.0.0"
 )
 
 // Connection structure contains the information needed for a MarkLogic REST connection
@@ -32,14 +32,6 @@ const (
 // REST API
 const (
 	ClientRest = iota
-	AdminRest
-	ManageRest
-)
-
-const (
-	Client_Path = ""
-	Admin_Path  = "admin/"
-	Manage_Path = "manage/"
 )
 
 func ExecuteRequest(client Client, req *http.Request, successV, failureV interface{}) (*http.Response, error) {
@@ -96,7 +88,6 @@ func DecodeResponseXML(resp *http.Response, successV, failureV interface{}) erro
 func DecodeResponseBodyJSON(resp *http.Response, v interface{}) error {
 	return json.NewDecoder(resp.Body).Decode(v)
 }
-
 
 func DecodeResponseBodyXML(resp *http.Response, v interface{}) error {
 	return xml.NewDecoder(resp.Body).Decode(v)
