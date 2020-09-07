@@ -14,12 +14,12 @@ const (
 func (s *RestService) GetLocalClusterSummary() (Structures.LocalClusterDefault, Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+Clusters, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	clustersResponse := new(Structures.LocalClusterResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	response, err := ExecuteRequest(s.client, req, clustersResponse, errorResponse)
+	response, err := ExecuteRequest(s.Client, req, clustersResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}

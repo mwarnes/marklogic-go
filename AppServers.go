@@ -25,11 +25,11 @@ func (s *RestService) GetAppServers(parms Structures.ServerParameters) (interfac
 	req, _ := http.NewRequest("GET", s.base+AppServers+"?"+urlParms, nil)
 
 	if strings.EqualFold(parms.Format, "xml") {
-		s.client = Decorate(s.client,
+		s.Client = Decorate(s.Client,
 			AddHeader("Accept", "application/xml"),
 		)
 	} else {
-		s.client = Decorate(s.client,
+		s.Client = Decorate(s.Client,
 			AddHeader("Accept", "application/json"),
 		)
 	}
@@ -45,7 +45,7 @@ func (s *RestService) GetAppServers(parms Structures.ServerParameters) (interfac
 		appServerResponse = new(Structures.AppServersDefaultResponse)
 	}
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, appServerResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, appServerResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -62,11 +62,11 @@ func (s *RestService) GetAppServer(appServer string, parms Structures.ServerPara
 	req, _ := http.NewRequest("GET", s.base+AppServers+"/"+appServer+"?"+urlParms, nil)
 
 	if strings.EqualFold(parms.Format, "xml") {
-		s.client = Decorate(s.client,
+		s.Client = Decorate(s.Client,
 			AddHeader("Accept", "application/xml"),
 		)
 	} else {
-		s.client = Decorate(s.client,
+		s.Client = Decorate(s.Client,
 			AddHeader("Accept", "application/json"),
 		)
 	}
@@ -80,7 +80,7 @@ func (s *RestService) GetAppServer(appServer string, parms Structures.ServerPara
 		appServerResponse = new(Structures.AppServerDefaultResponse)
 	}
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, appServerResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, appServerResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -98,11 +98,11 @@ func (s *RestService) GetAppServerProperties(appServer string, parms Structures.
 	req, _ := http.NewRequest("GET", s.base+AppServers+"/"+appServer+"/properties?"+urlParms, nil)
 
 	if strings.EqualFold(parms.Format, "xml") {
-		s.client = Decorate(s.client,
+		s.Client = Decorate(s.Client,
 			AddHeader("Accept", "application/xml"),
 		)
 	} else {
-		s.client = Decorate(s.client,
+		s.Client = Decorate(s.Client,
 			AddHeader("Accept", "application/json"),
 		)
 	}
@@ -110,7 +110,7 @@ func (s *RestService) GetAppServerProperties(appServer string, parms Structures.
 	appServerResponse := new(Structures.AppServerProperties)
 
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, appServerResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, appServerResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -125,12 +125,12 @@ func (s *RestService) AddAppServer(appServer Structures.AppServerProperties) (St
 	}
 	req, _ := http.NewRequest("POST", s.base+AppServers, bytes.NewBuffer(body))
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Content-Type", "application/json"),
 		AddHeader("Accept", "application/json"),
 	)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, nil, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, nil, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -146,13 +146,13 @@ func (s *RestService) UpdateAppServer(appServer Structures.AppServerProperties) 
 
 	req, _ := http.NewRequest("PUT", s.base+AppServers+"/"+appServer.ServerName+"/properties?group-id="+appServer.GroupName, bytes.NewBuffer(body))
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Content-Type", "application/json"),
 		AddHeader("Accept", "application/json"),
 	)
 	errorResponse := new(Structures.RestErrorResponse)
 	restartResponse := new(Structures.RestartResponse)
-	resp, err := ExecuteRequest(s.client, req, restartResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -169,18 +169,18 @@ func (s *RestService) DeleteAppServer(appServer string, parms Structures.ServerP
 	req, _ := http.NewRequest("DELETE", s.base+AppServers+"/"+appServer+"?"+urlParms, nil)
 
 	if strings.EqualFold(parms.Format, "xml") {
-		s.client = Decorate(s.client,
+		s.Client = Decorate(s.Client,
 			AddHeader("Accept", "application/xml"),
 		)
 	} else {
-		s.client = Decorate(s.client,
+		s.Client = Decorate(s.Client,
 			AddHeader("Accept", "application/json"),
 		)
 	}
 
 	restartResponse := new(Structures.RestartResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, restartResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}

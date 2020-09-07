@@ -22,12 +22,12 @@ const (
 func (s *RestService) GetCertificateTemplates() (Structures.CertificateTemplatesDefaultList, Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+CertificateTemplate, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	certificateTemplateResponse := new(Structures.CertificateTemplatesResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, certificateTemplateResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, certificateTemplateResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -37,12 +37,12 @@ func (s *RestService) GetCertificateTemplates() (Structures.CertificateTemplates
 func (s *RestService) GetCertificateTemplate(template string) (Structures.CertificateTemplateDefault, Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+CertificateTemplate+"/"+template, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	certificateTemplateSummary := new(Structures.CertificateTemplateResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, certificateTemplateSummary, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, certificateTemplateSummary, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -56,12 +56,12 @@ func (s *RestService) CreateCertificateTemplate(templateProperties Structures.Ce
 	}
 	req, _ := http.NewRequest("POST", s.base+CertificateTemplate, bytes.NewBuffer(body))
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Content-Type", "application/json"),
 		AddHeader("Accept", "application/json"),
 	)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, nil, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, nil, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -75,12 +75,12 @@ func (s *RestService) PerformCertificateTemplateOperation(template string, opera
 	}
 	req, _ := http.NewRequest("POST", s.base+CertificateTemplate+"/"+template, bytes.NewBuffer(body))
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Content-Type", "application/json"),
 		AddHeader("Accept", "application/json"),
 	)
 
-	resp, err := s.client.Do(req)
+	resp, err := s.Client.Do(req)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -95,12 +95,12 @@ func (s *RestService) PerformCertificateTemplateOperation(template string, opera
 func (s *RestService) GetCertificateAuthorities() (Structures.CertificateAuthoritiesDefaultList, Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+CertificateAuthorities, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	certificateAuthoritiesResponse := new(Structures.CertificateAuthoritiesResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, certificateAuthoritiesResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, certificateAuthoritiesResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -110,12 +110,12 @@ func (s *RestService) GetCertificateAuthorities() (Structures.CertificateAuthori
 func (s *RestService) GetCertificateAuthority(id string) (Structures.CertificateAuthorityDefault, Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+CertificateAuthorities+"/"+id, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	certificateAuthority := new(Structures.CertificateAuthorityResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, certificateAuthority, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, certificateAuthority, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -125,12 +125,12 @@ func (s *RestService) GetCertificateAuthority(id string) (Structures.Certificate
 func (s *RestService) GetCertificateAuthorityProperties(id string) (Structures.CertificateAuthorityProperties, Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+CertificateAuthorities+"/"+id+"/properties", nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	certificateAuthorityProperties := new(Structures.CertificateAuthorityProperties)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, certificateAuthorityProperties, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, certificateAuthorityProperties, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -140,12 +140,12 @@ func (s *RestService) GetCertificateAuthorityProperties(id string) (Structures.C
 func (s *RestService) GetCertificates() (Structures.CertificateDefaultList, Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+Certificates, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	certificatesResponse := new(Structures.CertificatesResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, certificatesResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, certificatesResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -160,12 +160,12 @@ func (s *RestService) AddCertificate(certificatePem string, trusted bool) (Struc
 		req, _ = http.NewRequest("POST", s.base+Certificates+"?trusted=false", bytes.NewBufferString(certificatePem))
 	}
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Content-Type", "text/plain"),
 		AddHeader("Accept", "application/json"),
 	)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, nil, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, nil, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -176,12 +176,12 @@ func (s *RestService) GetCertificate(id string) (Structures.Certificate, Structu
 	idUri := url.QueryEscape(id)
 	req, _ := http.NewRequest("GET", s.base+Certificates+"/"+idUri, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	certificateResponse := new(Structures.Certificate)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, certificateResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, certificateResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -192,12 +192,12 @@ func (s *RestService) GetCertificateProperties(id string) (Structures.Certificat
 	idUri := url.QueryEscape(id)
 	req, _ := http.NewRequest("GET", s.base+Certificates+"/"+idUri+"/properties", nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	certificateProperties := new(Structures.CertificateProperties)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, certificateProperties, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, certificateProperties, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -207,11 +207,11 @@ func (s *RestService) GetCertificateProperties(id string) (Structures.Certificat
 func (s *RestService) DeleteCertificate(id string) (Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("DELETE", s.base+Certificates+"/"+id, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, nil, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, nil, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -221,12 +221,12 @@ func (s *RestService) DeleteCertificate(id string) (Structures.RestErrorResponse
 func (s *RestService) GetExternalSecurity() (Structures.ExternalSecurityDefaultList, Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+ExternalSecurity, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	externalSecurityResponse := new(Structures.ExternalSecurityResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, externalSecurityResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, externalSecurityResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -236,12 +236,12 @@ func (s *RestService) GetExternalSecurity() (Structures.ExternalSecurityDefaultL
 func (s *RestService) GetExternalSecurityConfiguration(extSecurityConfig string) (Structures.ExternalSecurityConfiguration, Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+ExternalSecurity+"/"+extSecurityConfig, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 	externalSecurityConfiguration := new(Structures.ExternalSecurityConfigurationResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, externalSecurityConfiguration, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, externalSecurityConfiguration, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -258,11 +258,11 @@ func (s *RestService) GetExternalSecurityProperties(extSecurityConfig string, pa
 	req, _ := http.NewRequest("GET", s.base+ExternalSecurity+"/"+extSecurityConfig+"/properties?"+urlParms, nil)
 
 	if strings.EqualFold(parms.Format, "xml") {
-		s.client = Decorate(s.client,
+		s.Client = Decorate(s.Client,
 			AddHeader("Accept", "application/xml"),
 		)
 	} else {
-		s.client = Decorate(s.client,
+		s.Client = Decorate(s.Client,
 			AddHeader("Accept", "application/json"),
 		)
 	}
@@ -270,7 +270,7 @@ func (s *RestService) GetExternalSecurityProperties(extSecurityConfig string, pa
 	externalSecurityPropertiesResponse := new(Structures.ExternalSecurityProperties)
 
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, externalSecurityPropertiesResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, externalSecurityPropertiesResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -286,12 +286,12 @@ func (s *RestService) AddExternalSecurityConfiguration(externalSecurityParameter
 
 	req, _ := http.NewRequest("POST", s.base+ExternalSecurity, bytes.NewBuffer(body))
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Content-Type", "application/json"),
 		AddHeader("Accept", "application/json"),
 	)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, nil, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, nil, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -307,13 +307,13 @@ func (s *RestService) UpdateExternalSecurityConfiguration(externalSecurityParame
 
 	req, _ := http.NewRequest("PUT", s.base+ExternalSecurity+"/"+externalSecurityParameters.ExternalSecurityName+"/properties", bytes.NewBuffer(body))
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Content-Type", "application/json"),
 		AddHeader("Accept", "application/json"),
 	)
 	errorResponse := new(Structures.RestErrorResponse)
 	restartResponse := new(Structures.RestartResponse)
-	resp, err := ExecuteRequest(s.client, req, restartResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -324,13 +324,13 @@ func (s *RestService) DeleteExternalSecurityConfiguration(extSecurityConfig stri
 
 	req, _ := http.NewRequest("DELETE", s.base+ExternalSecurity+"/"+extSecurityConfig, nil)
 
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 
 	restartResponse := new(Structures.RestartResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	resp, err := ExecuteRequest(s.client, req, restartResponse, errorResponse)
+	resp, err := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
 	if err != nil {
 		log.Fatalln(err)
 	}

@@ -10,7 +10,7 @@ import (
 )
 
 type RestService struct {
-	client Client
+	Client Client
 	base   string
 }
 
@@ -18,7 +18,7 @@ func NewRestService(client Client, base string) *RestService {
 
 	return &RestService{
 		base:   base,
-		client: client,
+		Client: client,
 	}
 }
 
@@ -28,11 +28,11 @@ func (s *RestService) NewRequest(method, url string, body io.Reader) (*http.Requ
 }
 
 func (s *RestService) ExecuteRequest(req *http.Request) (*http.Response, error) {
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 	)
 
-	response, err := s.client.Do(req)
+	response, err := s.Client.Do(req)
 	if err != nil {
 		return response, err
 	}

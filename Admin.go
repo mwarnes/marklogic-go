@@ -22,7 +22,7 @@ const (
 // Timestamp returns the current MarkLogic server timestamp and an error if a problem was encountered.
 func (s *RestService) Timestamp() (string, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+Timestamp, nil)
-	response, err := s.client.Do(req)
+	response, err := s.Client.Do(req)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -40,7 +40,7 @@ func (s *RestService) Timestamp() (string, http.Response) {
 //timestamp use Timestamp() instead.
 func (s *RestService) TimestampHead() (Structures.TimestampHead, http.Response) {
 	req, _ := http.NewRequest("HEAD", s.base+Timestamp, nil)
-	response, err := s.client.Do(req)
+	response, err := s.Client.Do(req)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -66,13 +66,13 @@ func (s *RestService) Init(license Structures.LicenseProperties) (Structures.Res
 	req, _ := http.NewRequest("POST", s.base+Initialize, bytes.NewBuffer(body))
 
 	// TODO For the time being only JSON formatting accpeted.
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 		AddHeader("Content-Type", "application/json"),
 	)
 	restartResponse := new(Structures.RestartResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	response, err := ExecuteRequest(s.client, req, restartResponse, errorResponse)
+	response, err := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
 	return *restartResponse, *errorResponse, *response
 }
 
@@ -86,22 +86,22 @@ func (s *RestService) InstanceAdmin(properties Structures.SecurityProperties) (S
 	req, _ := http.NewRequest("POST", s.base+InstanceAdmin, bytes.NewBufferString(body))
 
 	// TODO For the time being only JSON formatting accpeted.
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 		AddHeader("Content-Type", "application/x-www-form-urlencoded"),
 	)
 	restartResponse := new(Structures.RestartResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	response, err := ExecuteRequest(s.client, req, restartResponse, errorResponse)
+	response, err := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
 	return *restartResponse, *errorResponse, *response
 }
 
 func (s *RestService) GetServerConfig() (string, http.Response) {
 	req, _ := http.NewRequest("GET", s.base+ServerConfig, nil)
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/xml"),
 	)
-	response, err := s.client.Do(req)
+	response, err := s.Client.Do(req)
 	if err != nil {
 		return "", *response
 	}
@@ -121,11 +121,11 @@ func (s *RestService) SendClusterConfigForm(properties Structures.ClusterConfigP
 	body := v.Encode()
 
 	req, _ := http.NewRequest("POST", s.base+ClusterConfig, bytes.NewBufferString(body))
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/zip"),
 		AddHeader("Content-Type", "application/x-www-form-urlencoded"),
 	)
-	response, err := s.client.Do(req)
+	response, err := s.Client.Do(req)
 	if err != nil {
 		return nil, *response
 	}
@@ -139,12 +139,12 @@ func (s *RestService) SendClusterConfigForm(properties Structures.ClusterConfigP
 
 func (s *RestService) SendClusterConfigZip(config io.Reader) (Structures.RestartResponse, Structures.RestErrorResponse, http.Response) {
 	req, _ := http.NewRequest("POST", s.base+ClusterConfig, config)
-	s.client = Decorate(s.client,
+	s.Client = Decorate(s.Client,
 		AddHeader("Accept", "application/json"),
 		AddHeader("Content-Type", "application/zip"),
 	)
 	restartResponse := new(Structures.RestartResponse)
 	errorResponse := new(Structures.RestErrorResponse)
-	response, _ := ExecuteRequest(s.client, req, restartResponse, errorResponse)
+	response, _ := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
 	return *restartResponse, *errorResponse, *response
 }

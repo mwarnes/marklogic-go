@@ -1,10 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"github.com/mwarnes/marklogic-go"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -58,11 +58,9 @@ type Servers struct {
 	} `json:"server-default-list"`
 }
 
-func decodeResponseBodyJSON(resp *http.Response, v interface{}) error {
-	return json.NewDecoder(resp.Body).Decode(v)
-}
-
 func main() {
+
+	logger := log.New(os.Stderr, "", log.LstdFlags)
 
 	conn := marklogic.Connection{
 		Host:               "mwca",
@@ -74,7 +72,14 @@ func main() {
 
 	c := marklogic.RestClient(conn)
 
+	c.RestService.Client = marklogic.Decorate(c.RestService.Client,
+		marklogic.AddHeader("SomeHeader", "SomeValue"),
+		marklogic.Logging(logger),
+	)
+
 	req, _ := c.RestService.NewRequest("GET", "/manage/v2/servers", nil)
+
+	req.Header.Del("User-Agent")
 
 	httpResp, err := c.RestService.ExecuteRequest(req)
 
@@ -83,7 +88,7 @@ func main() {
 	if err == nil {
 		defer httpResp.Body.Close()
 		if httpResp.StatusCode == http.StatusOK {
-			decodeResponseBodyJSON(httpResp, servers)
+			marklogic.DecodeResponseBodyJSON(httpResp, servers)
 			log.Println(servers.ServerDefaultList)
 		}
 	} else {
