@@ -12,7 +12,7 @@ func main() {
 
 	// MarkLogic REST API Connection parameters
 	conn := marklogic.Connection{
-		Host:               "ml-node-1",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
@@ -20,18 +20,18 @@ func main() {
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	operation := Structures.CertificateTemplateOperation{
 		Operation:  "get-pending-certificate-request",
-		CommonName: "ml-node-2",
+		CommonName: "ml-node-4",
 	}
 
 	content, resp := c.RestService.PerformCertificateTemplateOperation("ssl1", operation)
 
 	if resp.StatusCode == 200 {
 		log.Println("Operation succeeded.")
-		log.Println(content)
+		log.Println(string(content))
 	} else {
 		log.Println(resp.StatusCode)
 	}

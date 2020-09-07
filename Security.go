@@ -81,6 +81,9 @@ func (s *RestService) PerformCertificateTemplateOperation(template string, opera
 	)
 
 	resp, err := s.client.Do(req)
+	if err != nil {
+		log.Fatalln(err)
+	}
 	defer resp.Body.Close()
 	contents, err := ioutil.ReadAll(resp.Body)
 	if err != nil {

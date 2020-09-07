@@ -16,7 +16,7 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	certificateTemplateList, errorResponse, resp := c.RestService.GetCertificateTemplates()
 

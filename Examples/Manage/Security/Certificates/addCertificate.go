@@ -10,14 +10,14 @@ func main() {
 
 	// MarkLogic REST API Connection parameters
 	conn := marklogic.Connection{
-		Host:               "ml-node-1",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	var pem = `-----BEGIN CERTIFICATE-----
 MIIDejCCAmKgAwIBAgIBbzANBgkqhkiG9w0BAQUFADBOMSYwJAYDVQQDDB1Qcmlt

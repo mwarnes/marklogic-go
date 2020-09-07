@@ -19,7 +19,7 @@ func main() {
 	}
 
 	// Create a new MarkLogic Admin REST API client
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	// Get MarkLogic Server configuration.
 	configuration, resp := c.RestService.GetServerConfig()

@@ -22,7 +22,7 @@ func main() {
 	}
 
 	// Create a new MarkLogic Admin REST API client
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	req, _ := c.RestService.NewRequest("GET", "/v1/config/indexes", nil)
 

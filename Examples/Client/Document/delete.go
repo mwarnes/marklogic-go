@@ -9,17 +9,17 @@ import (
 func main() {
 
 	conn := marklogic.Connection{
-		Host:               "ml-node-1",
+		Host:               "mwca",
 		Port:               8000,
 		Username:           "admin",
 		Password:           "admin",
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	documentProperties := Structures.DocumentProperties{
-		URI: "/recipe2.json",
+		URI: "/recipe5v2.json",
 	}
 
 	httpResp := c.RestService.Delete(documentProperties)

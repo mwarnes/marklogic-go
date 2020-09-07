@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"encoding/xml"
+	"log"
 	"net/http"
 )
 
@@ -37,7 +38,7 @@ const (
 func ExecuteRequest(client Client, req *http.Request, successV, failureV interface{}) (*http.Response, error) {
 	response, err := client.Do(req)
 	if err != nil {
-		return nil, err
+		log.Fatalln(err)
 	}
 
 	// Close body when finished
@@ -67,19 +68,6 @@ func DecodeResponseJSON(resp *http.Response, successV, failureV interface{}) err
 	} else {
 		if failureV != nil {
 			return DecodeResponseBodyJSON(resp, failureV)
-		}
-	}
-	return nil
-}
-
-func DecodeResponseXML(resp *http.Response, successV, failureV interface{}) error {
-	if code := resp.StatusCode; 200 <= code && code <= 299 {
-		if successV != nil {
-			return DecodeResponseBodyXML(resp, successV)
-		}
-	} else {
-		if failureV != nil {
-			return DecodeResponseBodyXML(resp, failureV)
 		}
 	}
 	return nil

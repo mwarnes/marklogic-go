@@ -9,14 +9,14 @@ import (
 func main() {
 
 	conn := marklogic.Connection{
-		Host:               "ml-node-1",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
 		AuthenticationType: marklogic.BasicAuth,
 	}
 
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	clusterSummary, errorResp, httpResp := c.RestService.GetLocalClusterSummary()
 

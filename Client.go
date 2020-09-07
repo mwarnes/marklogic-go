@@ -98,11 +98,11 @@ func Decorate(c Client, ds ...Decorator) Client {
 	return decorated
 }
 
-type RestClient struct {
+type MLRestClient struct {
 	RestService *RestService
 }
 
-func MarkLogicRestClient(connection Connection) RestClient {
+func RestClient(connection Connection) MLRestClient {
 
 	client, base := getBasicClientAndBase(connection, ClientRest)
 
@@ -118,7 +118,7 @@ func MarkLogicRestClient(connection Connection) RestClient {
 
 	restService := NewRestService(cli, base)
 
-	return RestClient{
+	return MLRestClient{
 		RestService: restService,
 	}
 }

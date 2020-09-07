@@ -17,13 +17,13 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	parms := Structures.ServerParameters{
 		GroupId: "Default",
 	}
 
-	appSeverResponse, errorResponse, resp := c.RestService.GetAppServer("App-Services", parms)
+	appSeverResponse, errorResponse, resp := c.RestService.GetAppServer("myAppSrvr", parms)
 
 	if resp.StatusCode == 200 {
 		log.Println(spew.Sdump(appSeverResponse))

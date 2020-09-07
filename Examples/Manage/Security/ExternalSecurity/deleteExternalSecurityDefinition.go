@@ -9,14 +9,14 @@ import (
 func main() {
 
 	conn := marklogic.Connection{
-		Host:               "localhost",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	restartResponse, errorResponse, resp := c.RestService.DeleteExternalSecurityConfiguration("Auth1")
 

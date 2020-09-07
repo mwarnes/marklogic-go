@@ -10,14 +10,14 @@ import (
 func main() {
 
 	conn := marklogic.Connection{
-		Host:               "ml-node-1",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	server := Structures.AppServerProperties{
 		ServerName:      "myAppSrvr",

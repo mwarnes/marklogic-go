@@ -10,20 +10,20 @@ import (
 func main() {
 
 	conn := marklogic.Connection{
-		Host:               "localhost",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicManageClient(conn)
+	c := marklogic.RestClient(conn)
 
 	parms := Structures.ServerParameters{
 		GroupId: "Default",
 	}
 
-	restartResponse, errorResponse, resp := c.AppServer.DeleteAppServer("myAppSrvr", parms)
+	restartResponse, errorResponse, resp := c.RestService.DeleteAppServer("myAppSrvr", parms)
 
 	if resp.StatusCode == 202 {
 		log.Println("Server deleted successfully, restart required.")

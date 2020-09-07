@@ -12,7 +12,7 @@ func main() {
 
 	// MarkLogic REST API Connection parameters
 	conn := marklogic.Connection{
-		Host:               "ml-node-1",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
@@ -20,7 +20,7 @@ func main() {
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	// Get List of Certificate Authorities
 	certificateAuthorities, restError, resp := c.RestService.GetCertificateAuthorities()

@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	AppServers = "/manage/v2/servers"
+	AppServers = "/manage/LATEST/servers"
 )
 
 //https://docs.marklogic.com/REST/GET/manage/v2/servers

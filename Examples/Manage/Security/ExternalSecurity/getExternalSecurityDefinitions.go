@@ -10,7 +10,7 @@ func main() {
 
 	// MarkLogic REST API Connection parameters
 	conn := marklogic.Connection{
-		Host:               "localhost",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
@@ -18,7 +18,7 @@ func main() {
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	// Get a list of all External Security Definitions stored in MarkLogic
 	externalSecurityList, restError, resp := c.RestService.GetExternalSecurity()

@@ -24,7 +24,7 @@ func main() {
 	}
 
 	// Create a new MarkLogic Admin REST API client
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	// Issue Timestamp request
 	timestamp, _ := c.RestService.Timestamp()

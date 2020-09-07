@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"crypto/tls"
 	"github.com/mwarnes/marklogic-go/Structures"
 	"log"
 
@@ -11,27 +10,27 @@ import (
 
 func main() {
 
-	tlsConfig := &tls.Config{
-		InsecureSkipVerify: true,
-	}
+	//tlsConfig := &tls.Config{
+	//	InsecureSkipVerify: true,
+	//}
 
 	// MarkLogic REST API Connection parameters
 	conn := marklogic.Connection{
-		Host: "mwca",
-		Port: 8000,
-		// Username:           "admin",
-		// Password:           "admin",
+		Host:               "mwca",
+		Port:               8000,
+		Username:           "admin",
+		Password:           "admin",
 		AuthenticationType: marklogic.DigestAuth,
-		TLSConfig:          tlsConfig,
+		//TLSConfig:          tlsConfig,
 	}
 
 	// Create a new MarkLogic Admin REST API client
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	s := `{"recipe":"Apple pie", "fromScratch":true, "ingredients":"apples"}`
 
 	documentProperties := Structures.DocumentProperties{
-		URI: "/recipe5.json",
+		URI: "/recipe5v2.json",
 	}
 
 	// Initialize MarkLogic server (With or without a license)

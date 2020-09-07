@@ -18,7 +18,7 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	parms := Structures.ServerParameters{
 		GroupId: "Default",

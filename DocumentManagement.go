@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	Documents = "LATEST/documents"
+	Documents = "/LATEST/documents"
 )
 
 func (s *RestService) Write(properties Structures.DocumentProperties, content io.Reader) (Structures.RestErrorResponse, http.Response, error) {

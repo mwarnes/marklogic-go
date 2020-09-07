@@ -12,7 +12,7 @@ func main() {
 
 	// MarkLogic REST API Connection parameters
 	conn := marklogic.Connection{
-		Host:               "localhost",
+		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
@@ -20,9 +20,9 @@ func main() {
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
-	certificateAuthority, restError, resp := c.RestService.GetCertificateAuthority("149618619387296503")
+	certificateAuthority, restError, resp := c.RestService.GetCertificateAuthority("14539353274846980465")
 
 	if resp.StatusCode == 200 {
 		log.Println(spew.Sdump(certificateAuthority))

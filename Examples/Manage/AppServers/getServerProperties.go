@@ -13,23 +13,23 @@ func main() {
 		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
-		Password:           "admin",
+		Password:           "adminx",
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	parms := Structures.ServerParameters{
 		GroupId: "Default",
 	}
 
-	appSeverPropertiesResponse, errorResponse, resp := c.RestService.GetAppServerProperties("xdbc1", parms)
+	appSeverPropertiesResponse, _, resp := c.RestService.GetAppServerProperties("xdbc1", parms)
 
 	if resp.StatusCode == 200 {
 		log.Println(spew.Sdump(appSeverPropertiesResponse))
 	} else {
 		log.Println(resp.Status)
-		log.Println(spew.Sdump(errorResponse))
+		//log.Println(spew.Sdump(errorResponse))
 	}
 
 }

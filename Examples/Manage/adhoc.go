@@ -72,7 +72,7 @@ func main() {
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	req, _ := c.RestService.NewRequest("GET", "/manage/v2/servers", nil)
 

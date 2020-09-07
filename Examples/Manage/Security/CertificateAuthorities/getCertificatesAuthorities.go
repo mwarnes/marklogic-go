@@ -15,12 +15,12 @@ func main() {
 		Host:               "mwca",
 		Port:               8002,
 		Username:           "admin",
-		Password:           "password",
+		Password:           "admin",
 		AuthenticationType: marklogic.DigestAuth,
 	}
 
 	// Create a new MarkLogic REST API client
-	c := marklogic.MarkLogicRestClient(conn)
+	c := marklogic.RestClient(conn)
 
 	// Get a list of all Certificates Authorities stored in MarkLogic
 	certificateAuthoritiesList, restError, resp := c.RestService.GetCertificateAuthorities()
