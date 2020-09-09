@@ -9,7 +9,7 @@ import (
 func main() {
 
 	conn := marklogic.Connection{
-		Host:               "mwca",
+		Host:               "ml-node-1",
 		Port:               8000,
 		Username:           "admin",
 		Password:           "admin",
@@ -19,7 +19,7 @@ func main() {
 	c := marklogic.RestClient(conn)
 
 	documentProperties := Structures.DocumentProperties{
-		URI: "/recipe5v2.json",
+		URI: "/docker/cluster/properties.json",
 	}
 
 	document, httpResp := c.RestService.Read(documentProperties)

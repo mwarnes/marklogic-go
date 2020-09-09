@@ -28,6 +28,11 @@ func (s *RestService) Write(properties Structures.DocumentProperties, content io
 	)
 	errorResponse := new(Structures.RestErrorResponse)
 	response, err := ExecuteRequest(s.Client, req, nil, errorResponse)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	return *errorResponse, *response, err
 }
 
@@ -41,6 +46,10 @@ func (s *RestService) Read(properties Structures.DocumentProperties) (io.Reader,
 	req, _ := http.NewRequest("GET", s.base+Documents+"?"+options, nil)
 
 	response, err := s.Client.Do(req)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	defer response.Body.Close()
 	contents, err := ioutil.ReadAll(response.Body)

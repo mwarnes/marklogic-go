@@ -73,6 +73,9 @@ func (s *RestService) Init(license Structures.LicenseProperties) (Structures.Res
 	restartResponse := new(Structures.RestartResponse)
 	errorResponse := new(Structures.RestErrorResponse)
 	response, err := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
+	if err != nil {
+		log.Fatalln(err)
+	}
 	return *restartResponse, *errorResponse, *response
 }
 
@@ -93,6 +96,9 @@ func (s *RestService) InstanceAdmin(properties Structures.SecurityProperties) (S
 	restartResponse := new(Structures.RestartResponse)
 	errorResponse := new(Structures.RestErrorResponse)
 	response, err := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
+	if err != nil {
+		log.Fatalln(err)
+	}
 	return *restartResponse, *errorResponse, *response
 }
 
@@ -146,5 +152,6 @@ func (s *RestService) SendClusterConfigZip(config io.Reader) (Structures.Restart
 	restartResponse := new(Structures.RestartResponse)
 	errorResponse := new(Structures.RestErrorResponse)
 	response, _ := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
+
 	return *restartResponse, *errorResponse, *response
 }
