@@ -27,7 +27,8 @@ func main() {
 	c := marklogic.RestClient(conn)
 
 	// Issue Timestamp request
-	timestamp, _ := c.RestService.Timestamp()
+	timestamp, resp := c.RestService.Timestamp()
 
+	log.Println("Response Code:", resp.StatusCode)
 	log.Println("Current timestamp:", timestamp)
 }
