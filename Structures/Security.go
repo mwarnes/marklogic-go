@@ -252,6 +252,18 @@ type ExternalSecurityConfigurationResponse struct {
 	ExternalSecurityConfiguration ExternalSecurityConfiguration `json:"external-security-default"`
 }
 
+type SamlServer struct {
+	SamlEntityID                string      `json:"saml-entity-id,omitempty"`
+	SamlAttributeName           []string    `json:"saml-attribute-name,omitempty"`
+	SamlPrivilegeAttributeName  string      `json:"saml-privilege-attribute-name,omitempty"`
+	HTTPOptions                 interface{} `json:"http-options,omitempty"`
+	SamlDestination             string      `json:"saml-destination,omitempty"`
+	SamlIssuer                  string      `json:"saml-issuer,omitempty"`
+	SamlIdpCertificateAuthority string      `json:"saml-idp-certificate-authority,omitempty"`
+	SamlSpCertificate           string      `json:"saml-sp-certificate,omitempty"`
+	SamlSpPrivateKey            string      `json:"saml-sp-private-key,omitempty"`
+}
+
 type ExternalSecurityConfiguration struct {
 	ID                   string       `json:"id"`
 	ExternalSecurityName string       `json:"external-security-name"`
@@ -268,51 +280,35 @@ type ExternalSecurityConfiguration struct {
 	Meta                 Meta         `json:"meta,omitempty"`
 	Relations            Relations    `json:"relations"`
 	RelatedViews         RelatedViews `json:"related-views"`
+	SamlServer           SamlServer   `json:"saml-server"`
 }
 
 type ExternalSecurityConfigurationParameters struct {
-	ExternalSecurityName string `json:"external-security-name,omitempty"`
-	Description          string `json:"description,omitempty"`
-	Authentication       string `json:"authentication,omitempty"`
-	CacheTimeout         int    `json:"cache-timeout,omitempty"`
-	Authorization        string `json:"authorization,omitempty"`
-	LdapServerURI        string `json:"ldap-server-uri,omitempty"`
-	LdapBase             string `json:"ldap-base,omitempty"`
-	LdapAttribute        string `json:"ldap-attribute,omitempty"`
-	LdapDefaultUser      string `json:"ldap-default-user,omitempty"`
-	LdapPassword         string `json:"ldap-password,omitempty"`
-	LdapBindMethod       string `json:"ldap-bind-method,omitempty"`
+	ExternalSecurityName string      `json:"external-security-name,omitempty"`
+	Description          string      `json:"description,omitempty"`
+	Authentication       string      `json:"authentication,omitempty"`
+	CacheTimeout         int         `json:"cache-timeout,omitempty"`
+	Authorization        string      `json:"authorization,omitempty"`
+	LdapServerURI        string      `json:"ldap-server-uri,omitempty"`
+	LdapBase             string      `json:"ldap-base,omitempty"`
+	LdapAttribute        string      `json:"ldap-attribute,omitempty"`
+	LdapDefaultUser      string      `json:"ldap-default-user,omitempty"`
+	LdapPassword         string      `json:"ldap-password,omitempty"`
+	LdapBindMethod       string      `json:"ldap-bind-method,omitempty"`
+	SamlServer           *SamlServer `json:"saml-server,omitempty"`
 }
 
 type ExternalSecurityProperties struct {
-	ExternalSecurityName string `json:"external-security-name"`
-	Description          string `json:"description"`
-	Authentication       string `json:"authentication"`
-	CacheTimeout         int    `json:"cache-timeout"`
-	Authorization        string `json:"authorization"`
-	LdapServer           struct {
-		LdapServerURI         string `json:"ldap-server-uri"`
-		LdapBase              string `json:"ldap-base"`
-		LdapAttribute         string `json:"ldap-attribute"`
-		LdapDefaultUser       string `json:"ldap-default-user"`
-		LdapPassword          string `json:"ldap-password"`
-		LdapBindMethod        string `json:"ldap-bind-method"`
-		LdapMemberofAttribute string `json:"ldap-memberof-attribute"`
-		LdapMemberAttribute   string `json:"ldap-member-attribute"`
-	} `json:"ldap-server"`
-	SamlServer struct {
-		SamlEntityID               string `json:"saml-entity-id"`
-		SamlPrivilegeAttributeName string `json:"saml-privilege-attribute-name"`
-		HTTPOptions                struct {
-			CredentialID string `json:"credential-id"`
-			Method       string `json:"method"`
-			Username     string `json:"username"`
-			Password     string `json:"password"`
-			ClientCert   string `json:"client-cert"`
-			ClientKey    string `json:"client-key"`
-			PassPhrase   string `json:"pass-phrase"`
-		} `json:"http-options"`
-	} `json:"saml-server"`
-	SslClientCertificateAuthorities interface{} `json:"ssl-client-certificate-authorities"`
-	SslRequireClientCertificate     bool        `json:"ssl-require-client-certificate"`
+	ExternalSecurityName string      `json:"external-security-name,omitempty"`
+	Description          string      `json:"description,omitempty"`
+	Authentication       string      `json:"authentication,omitempty"`
+	CacheTimeout         int         `json:"cache-timeout,omitempty"`
+	Authorization        string      `json:"authorization,omitempty"`
+	LdapServerURI        string      `json:"ldap-server-uri,omitempty"`
+	LdapBase             string      `json:"ldap-base,omitempty"`
+	LdapAttribute        string      `json:"ldap-attribute,omitempty"`
+	LdapDefaultUser      string      `json:"ldap-default-user,omitempty"`
+	LdapPassword         string      `json:"ldap-password,omitempty"`
+	LdapBindMethod       string      `json:"ldap-bind-method,omitempty"`
+	SamlServer           *SamlServer `json:"saml-server,omitempty"`
 }

@@ -11,7 +11,7 @@ func main() {
 
 	// MarkLogic REST API Connection parameters
 	conn := marklogic.Connection{
-		Host:               "mwca",
+		Host:               "ml-node-1",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
@@ -26,7 +26,7 @@ func main() {
 	}
 
 	// Get a list of all External Security Definitions stored in MarkLogic
-	externalSecurityProperties, restError, resp := c.RestService.GetExternalSecurityProperties("AD1", parms)
+	externalSecurityProperties, restError, resp := c.RestService.GetExternalSecurityProperties("SAML1", parms)
 
 	if resp.StatusCode == 200 {
 		log.Println(spew.Sdump(externalSecurityProperties))

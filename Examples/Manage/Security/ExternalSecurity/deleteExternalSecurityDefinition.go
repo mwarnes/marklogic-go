@@ -9,7 +9,7 @@ import (
 func main() {
 
 	conn := marklogic.Connection{
-		Host:               "mwca",
+		Host:               "ml-node-1",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
@@ -18,7 +18,7 @@ func main() {
 
 	c := marklogic.RestClient(conn)
 
-	restartResponse, errorResponse, resp := c.RestService.DeleteExternalSecurityConfiguration("Auth1")
+	restartResponse, errorResponse, resp := c.RestService.DeleteExternalSecurityConfiguration("SAML1")
 
 	if resp.StatusCode == 202 {
 		log.Println("External Security configuration deleted successfully, restart required.")

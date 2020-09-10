@@ -10,7 +10,7 @@ import (
 func main() {
 
 	conn := marklogic.Connection{
-		Host:               "mwca",
+		Host:               "ml-node-1",
 		Port:               8002,
 		Username:           "admin",
 		Password:           "admin",
@@ -20,7 +20,7 @@ func main() {
 	c := marklogic.RestClient(conn)
 
 	externalSecurity := Structures.ExternalSecurityConfigurationParameters{
-		ExternalSecurityName: "Auth1",
+		ExternalSecurityName: "SAML1",
 		Description:          "Updated by go",
 		CacheTimeout:         600,
 	}

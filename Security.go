@@ -320,6 +320,28 @@ func (s *RestService) UpdateExternalSecurityConfiguration(externalSecurityParame
 	return *restartResponse, *errorResponse, *resp
 }
 
+func (s *RestService) UpdateExternalSecurityProperties(externalSecurityProperties Structures.ExternalSecurityProperties) (Structures.RestartResponse, Structures.RestErrorResponse, http.Response) {
+
+	body, err := json.Marshal(externalSecurityProperties)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	req, _ := http.NewRequest("PUT", s.base+ExternalSecurity+"/"+externalSecurityProperties.ExternalSecurityName+"/properties", bytes.NewBuffer(body))
+
+	s.Client = Decorate(s.Client,
+		AddHeader("Content-Type", "application/json"),
+		AddHeader("Accept", "application/json"),
+	)
+	errorResponse := new(Structures.RestErrorResponse)
+	restartResponse := new(Structures.RestartResponse)
+	resp, err := ExecuteRequest(s.Client, req, restartResponse, errorResponse)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return *restartResponse, *errorResponse, *resp
+}
+
 func (s *RestService) DeleteExternalSecurityConfiguration(extSecurityConfig string) (Structures.RestartResponse, Structures.RestErrorResponse, http.Response) {
 
 	req, _ := http.NewRequest("DELETE", s.base+ExternalSecurity+"/"+extSecurityConfig, nil)
